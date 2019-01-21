@@ -42,7 +42,6 @@ class BaseXConverter(object):
           digits.append(self.alphabet[int(val % self.base)])
           val = int(val / self.base)
 
-        if sign < 0: digits.append('-')
         digits.reverse()
         bXval = ''.join(digits)
 
