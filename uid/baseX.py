@@ -22,13 +22,30 @@ class BaseXConverter(object):
         '''
         self.alphabet = list(alphabet)
         self.base = len(alphabet)
-        self.alphabet_index = {}
+        self.alphabet_index = {
+          val:index
+          for index,val in enumerate(self.alphabet)
+            if index < self.base
+        }
 
     def convert(self, val):
         '''
         Converts value from base 10 to base X.
         The return value is a baseX integer, wrapped as a string.
         '''
+        if val == 0:
+          return digs[0]
+
+        digits = []
+
+        while val:
+          digits.append(self.alphabet[int(val % self.base)])
+          val = int(val / self.base)
+
+        if sign < 0: digits.append('-')
+        digits.reverse()
+        bXval = ''.join(digits)
+
         return bXval
 
     def invert(self, bXval):
@@ -37,4 +54,12 @@ class BaseXConverter(object):
         The bXval should be a baseX integer, wrapped as a string.
         Raises a ValueError if bXval contains any chars not in the alphabet.
         '''
+        val = 0
+        for digit in bXval:
+          try:
+            val = val*self.base + self.alphabet_index[digit]
+          except KeyError:
+            if digit in self.alphabet:
+              raise ValueError("invalid char '{}' in base {}".format(digit, self.base))
+
         return val
