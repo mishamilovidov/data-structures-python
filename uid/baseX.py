@@ -23,7 +23,7 @@ class BaseXConverter(object):
         self.alphabet = list(alphabet)
         self.base = len(alphabet)
         self.alphabet_index = {
-          val:index
+          index:val
           for index,val in enumerate(self.alphabet)
             if index < self.base
         }
@@ -33,17 +33,13 @@ class BaseXConverter(object):
         Converts value from base 10 to base X.
         The return value is a baseX integer, wrapped as a string.
         '''
-        if val == 0:
-          return digs[0]
+        quot, rem = val // self.base, val % self.base
+        bXval = str(self.alphabet[rem])
 
-        digits = []
-
-        while val:
-          digits.append(self.alphabet[int(val % self.base)])
-          val = int(val / self.base)
-
-        digits.reverse()
-        bXval = ''.join(digits)
+        while quot > 0:
+          quot_updated, rem = quot // self.base, quot % self.base
+          bXval = str(self.alphabet_index[rem]) + bXval
+          quot = quot_updated
 
         return bXval
 
@@ -53,12 +49,13 @@ class BaseXConverter(object):
         The bXval should be a baseX integer, wrapped as a string.
         Raises a ValueError if bXval contains any chars not in the alphabet.
         '''
+        inv_alphabet_index = {v: k for k, v in self.alphabet_index.items()}
         val = 0
         for digit in bXval:
           try:
-            val = val*self.base + self.alphabet_index[digit]
+            val = val*self.base + inv_alphabet_index[digit]
           except KeyError:
-            if digit in self.alphabet:
+            if digit not in self.alphabet:
               raise ValueError("invalid char '{}' in base {}".format(digit, self.base))
 
         return val

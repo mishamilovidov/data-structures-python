@@ -11,10 +11,18 @@ except ImportError:
     import profile
 from uid import generate
 
-
 def main():
-    print('do something here')
+  # f = open("uids.txt","w+")
 
+  for i in range(10000):
+    generate(2)
+    # f.write(generate() + '\n')
+    # f.write(generate(2) + '\n')
+    # f.write(generate(16) + '\n')
+    # f.write(generate(58) + '\n')
+    # f.write(generate(64) + '\n')
+
+  # f.close()
 
 # start things up!
 prof = profile.Profile()
