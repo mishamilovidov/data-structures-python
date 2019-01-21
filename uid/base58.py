@@ -1,5 +1,5 @@
 from baseX import BaseXConverter
-_conv = BaseXConverter("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_")
+_conv = BaseXConverter("123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
 
 def convert(val):
     return _conv.convert(val)
