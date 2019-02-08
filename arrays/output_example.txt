@@ -37,35 +37,35 @@ Error: 21 is not within the bounds of the current array.
 17 of 20 >>> a, e, r, o, y, T, x, w, L, i, S, o, d, u, s, a, u, None, None, None
 28:DELETE,6,
 29:DEBUG,,
-16 of 20 >>> a, e, r, o, y, T, w, L, i, S, o, d, u, s, a, u, u, None, None, None
+16 of 20 >>> a, e, r, o, y, T, w, L, i, S, o, d, u, s, a, u, None, None, None, None
 30:DELETE,10,
 31:DEBUG,,
 15 of 15 >>> a, e, r, o, y, T, w, L, i, S, d, u, s, a, u
 32:DELETE,11,
 33:DEBUG,,
-14 of 15 >>> a, e, r, o, y, T, w, L, i, S, d, s, a, u, u
+14 of 15 >>> a, e, r, o, y, T, w, L, i, S, d, s, a, u, None
 34:DELETE,7,
 35:DEBUG,,
-13 of 15 >>> a, e, r, o, y, T, w, i, S, d, s, a, u, u, u
+13 of 15 >>> a, e, r, o, y, T, w, i, S, d, s, a, u, None, None
 36:DELETE,13,
 Error: 13 is not within the bounds of the current array.
 37:DEBUG,,
-13 of 15 >>> a, e, r, o, y, T, w, i, S, d, s, a, u, u, u
+13 of 15 >>> a, e, r, o, y, T, w, i, S, d, s, a, u, None, None
 38:SWAP,1,3
 39:SWAP,7,8
 40:DEBUG,,
-13 of 15 >>> a, o, r, e, y, T, w, S, i, d, s, a, u, u, u
+13 of 15 >>> a, o, r, e, y, T, w, S, i, d, s, a, u, None, None
 41:SWAP,0,13
 Error: 13 is not within the bounds of the current array.
 42:DELETE,10,
 43:DEBUG,,
-12 of 15 >>> a, o, r, e, y, T, w, S, i, d, a, u, u, u, u
+12 of 15 >>> a, o, r, e, y, T, w, S, i, d, a, u, None, None, None
 44:ADD,u,
 45:ADD,h,
 46:DEBUG,,
-14 of 15 >>> a, o, r, e, y, T, w, S, i, d, a, u, u, h, u
+14 of 15 >>> a, o, r, e, y, T, w, S, i, d, a, u, u, h, None
 47:INSERT,12,p
-48:ADD,8,t
+48:ADD,8,
 49:ADD,T,
 50:ADD,g,
 51:ADD,h,
