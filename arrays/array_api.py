@@ -15,6 +15,7 @@ class Array(object):
   def debug_print(self):
     '''Prints a representation of the entire allocated space, including unused spots.'''
     print('{} of {} >>> {}'.format(self.size, len(self.data), ', '.join([ str(item) for item in self.data ])))
+    return '{} of {} >>> {}'.format(self.size, len(self.data), ', '.join([ str(item) for item in self.data ]))
 
 
   def _check_bounds(self, index):
@@ -90,6 +91,7 @@ class Array(object):
         raise ValueError
     except ValueError:
       print('Error: {} is not within the bounds of the current array.'.format(index))
+      return 'Error: {} is not within the bounds of the current array.'.format(index)
 
   def set(self, index, item):
     '''Sets the given item at the given index.  Throws an exception if the index is not within the bounds of the array.'''
@@ -100,16 +102,19 @@ class Array(object):
         raise ValueError
     except ValueError:
       print('Error: {} is not within the bounds of the current array.'.format(index))
+      return 'Error: {} is not within the bounds of the current array.'.format(index)
 
   def get(self, index):
     '''Retrieves the item at the given index.  Throws an exception if the index is not within the bounds of the array.'''
     try:
       if self._check_bounds(index):
         print(self.data[int(index)])
+        return self.data[int(index)]
       else:
         raise ValueError
     except ValueError:
       print('Error: {} is not within the bounds of the current array.'.format(index))
+      return 'Error: {} is not within the bounds of the current array.'.format(index)
 
   def delete(self, index):
     '''Deletes the item at the given index, decreasing the allocated memory if needed.  Throws an exception if the index is not within the bounds of the array.'''
@@ -132,6 +137,7 @@ class Array(object):
         raise ValueError
     except ValueError:
       print('Error: {} is not within the bounds of the current array.'.format(index))
+      return 'Error: {} is not within the bounds of the current array.'.format(index)
 
   def swap(self, index1, index2):
     '''Swaps the values at the given indices.'''
@@ -147,6 +153,7 @@ class Array(object):
         self.data[int(index2)] = data[int(index1)]
     except ValueError as index:
       print('Error: {} is not within the bounds of the current array.'.format(index))
+      return 'Error: {} is not within the bounds of the current array.'.format(index)
 
 ###################################################
 ###   Utilities
