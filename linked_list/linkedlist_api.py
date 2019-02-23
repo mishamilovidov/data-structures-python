@@ -33,150 +33,121 @@ class LinkedList(object):
 
 
     def _get_node(self, index):
-        '''Retrieves the Node object at the given index.  Throws an exception if the index is not within the bounds of the linked list.'''
-        return True if (int(index) >= 0 and int(index) <= self.size - 1) else False
+      '''Retrieves the Node object at the given index.  Throws an exception if the index is not within the bounds of the linked list.'''
+      if (int(index) >= 0 and int(index) <= self.size - 1):
+        for counter, node in enumerate(self._iter_nodes()):
+          if counter == index:
+            return node
+      else:
+        raise ValueError('Error: {} is not within the bounds of the current array.'.format(index))
 
 
     def add(self, item):
-        '''Adds an item to the end of the linked list.'''
-        n = Node(item)
-        if self.head is None:
-            self.head = n
-            self.size = 1
-        else:
-            last_item = self.head
-            
-            while last_item.next != None:
-                last_item = last_item.next
-            
-            last_item.next = n
-            self.size = self.size + 1
+      '''Adds an item to the end of the linked list.'''
+      n = Node(item)
+      if self.head is None:
+        self.head = n
+        self.size = 1
+      else:
+        try:
+          # get the last item in the list
+          last_item = self._get_node(self.size - 1)
+          
+          # point last item to new last item
+          last_item.next = n
+          
+          # increase size of list
+          self.size = self.size + 1
+        except Exception as e:
+          print(e)
+          return e
+
 
     def insert(self, index, item):
-        '''Inserts an item at the given index, shifting remaining items right.'''
-        try:
-            if self._get_node(index):
-                n = Node(item)
-                t = self.head
-                counter = 1
+      '''Inserts an item at the given index, shifting remaining items right.'''
+      try:
+        # create new node
+        new = Node(item)
+        
+        # get previous and current nodes relative to index
+        prev = self._get_node(int(index) - 1)
+        curr = prev.next
+        
+        # change pointer to insert new node
+        new.next = curr
+        prev.next = new
+        
+        # increase size of list
+        self.size = self.size + 1
+      except Exception as e:
+        print(e)
+        return e
 
-                while t != None:
-                    if int(index) == counter:
-                        n.next = t.next
-                        t.next = n
-                        self.size = self.size + 1
-                        break
-                    counter = counter + 1
-                    t = t.next
-            else:
-                raise ValueError
-        except ValueError:
-          print('Error: {} is not within the bounds of the current array.'.format(index))
-          return 'Error: {} is not within the bounds of the current array.'.format(index)
 
     def set(self, index, item):
-        '''Sets the given item at the given index.  Throws an exception if the index is not within the bounds of the linked list.'''
-        try:
-            if self._get_node(index):
-                t = self.head
-                counter = 0
-
-                while t != None:
-                    if int(index) == counter:
-                        t.value = item
-                        break
-                    counter = counter + 1
-                    t = t.next
-            else:
-                raise ValueError
-        except ValueError:
-          print('Error: {} is not within the bounds of the current array.'.format(index))
-          return 'Error: {} is not within the bounds of the current array.'.format(index)
+      '''Sets the given item at the given index.  Throws an exception if the index is not within the bounds of the linked list.'''
+      try:
+        # get node at index
+        new = self._get_node(int(index))
+        
+        # change the value at the index
+        new.value = item
+      except Exception as e:
+        print(e)
+        return e
 
 
     def get(self, index):
-        '''Retrieves the item at the given index.  Throws an exception if the index is not within the bounds of the linked list.'''
-        try:
-            if self._get_node(index):
-                t = self.head
-                counter = 0
-                
-                while t != None:
-                    if int(index) == counter:
-                        print(t.value)
-                        break
-                    counter = counter + 1
-                    t = t.next
-            else:
-                raise ValueError
-        except ValueError:
-            print('Error: {} is not within the bounds of the current array.'.format(index))
-            return 'Error: {} is not within the bounds of the current array.'.format(index)
+      '''Retrieves the item at the given index.  Throws an exception if the index is not within the bounds of the linked list.'''
+      try:
+        # get node at index
+        node = self._get_node(int(index))
+        
+        # print value of node
+        print(node.value)
+      except Exception as e:
+        print(e)
+        return e
+
 
     def delete(self, index):
-        '''Deletes the item at the given index. Throws an exception if the index is not within the bounds of the linked list.'''
+      '''Deletes the item at the given index. Throws an exception if the index is not within the bounds of the linked list.'''
+      if int(index) == 0:
+        node = self._get_node(int(index))
+        self.head = node.next
+        self.size = self.size - 1
+      else:
         try:
-            if self._get_node(index):
-                p = None
-                t = self.head
-                counter = 0
-
-                while t != None:
-                    if int(index) == counter:
-                        p.next = t.next
-                        t = None
-                        self.size = self.size - 1
-                        break
-                    counter = counter + 1
-                    p = t
-                    t = t.next
-            else:
-                raise ValueError
-        except ValueError:
-          print('Error: {} is not within the bounds of the current array.'.format(index))
-          return 'Error: {} is not within the bounds of the current array.'.format(index)
+          # get node at index and previous and next nodes
+          node = self._get_node(int(index))
+          prev = self._get_node(int(index) - 1)
+          next = node.next
+        
+          # point previous node to next node
+          prev.next = next
+          node = None
+          
+          # decrease size of list
+          self.size = self.size - 1
+        except Exception as e:
+          print(e)
+          return e
 
 
     def swap(self, index1, index2):
-        '''Swaps the values at the given indices.'''
-        try:
-            if not self._get_node(index1):
-                raise ValueError(index1)    
-            elif not self._get_node(index2):
-                raise ValueError(index2)
-            else:
-                p1 = None
-                t1 = self.head 
-                counter1 = 0
-                while t1 != None and counter1 != int(index1): 
-                    p1 = t1 
-                    t1 = t1.next
-                    counter1 = counter1 + 1
-          
-                p2 = None
-                t2 = self.head 
-                counter2 = 0
-                while t2 != None and counter2 != int(index2): 
-                    p2 = t2 
-                    t2 = t2.next
-                    counter2 = counter2 + 1
-          
-                if p1 != None: 
-                    p1.next = t2
-                else:
-                    self.head = t2
-  
-                if p2 != None: 
-                    p2.next = t1 
-                else: 
-                    self.head = t1
-          
-                temp = t1.next
-                t1.next = t2.next
-                t2.next = temp 
-        except ValueError as index:
-            print('Error: {} is not within the bounds of the current array.'.format(index))
-            return 'Error: {} is not within the bounds of the current array.'.format(index)
+      '''Swaps the values at the given indices.'''
+      try:
+        # get nodes at the two indices
+        node1 = self._get_node(int(index1))
+        node2 = self._get_node(int(index2))
+        
+        # change the values of the two indices
+        temp = node1.value
+        node1.value = node2.value
+        node2.value = temp
+      except Exception as e:
+        print(e)
+        return e
 
 
 ######################################################
