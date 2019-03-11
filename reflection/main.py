@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 from serialize import to_json
 
 
@@ -60,3 +61,6 @@ if __name__ == '__main__':
 
     # print
     print(to_json(p3))
+    # with open('output.json', 'w') as output_file:
+    #     sys.stdout = output_file
+    #     print(to_json(p3))
