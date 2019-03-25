@@ -65,6 +65,16 @@ class BinaryTree(object):
                 parent.right = node.right
 
         # node has two children
+        if node.left and node.right:
+            # walk right child tree to get the smallest value
+            delNode = self._get_min_node(node.right)
+            temp_node = delNode
+
+            # remove min child replace node with min value from right child tree
+            self.remove(delNode.key)
+            node.key = temp_node.key
+            node.value = temp_node.value
+
 
     def walk_dfs_inorder(self, node=None):
         '''
@@ -149,6 +159,12 @@ class BinaryTree(object):
                 return current_node.right
             else:
                 return self._get(key, current_node.right)
+
+    def _get_min_node(self, node):
+        if node.left is None:
+            return node
+        else:
+            return self._get_min_node(node.left)
 
 
 

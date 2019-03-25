@@ -67,25 +67,20 @@ def main():
     print(tree)
     print()
 
-    print('Remove j:')
-    tree.remove('j')
+    print('Remove b:')
+    tree.remove('b')
     print(tree)
     print()
 
-    # print('Remove b:')
-    # tree.remove('b')
-    # print(tree)
-    # print()
+    print('Remove f:')
+    tree.remove('f')
+    print(tree)
+    print()
 
-    # print('Remove f:')
-    # tree.remove('f')
-    # print(tree)
-    # print()
-
-    # print('Remove h:')
-    # tree.remove('h')
-    # print(tree)
-    # print()
+    print('Remove h:')
+    tree.remove('h')
+    print(tree)
+    print()
 
 
 
