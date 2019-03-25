@@ -63,9 +63,14 @@ def main():
         print(key, value)
     print()
 
-    # print('Initial tree:')
-    # print(tree)
-    # print()
+    print('Initial tree:')
+    print(tree)
+    print()
+
+    print('Remove j:')
+    tree.remove('j')
+    print(tree)
+    print()
 
     # print('Remove b:')
     # tree.remove('b')

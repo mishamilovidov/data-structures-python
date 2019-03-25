@@ -31,7 +31,7 @@ class BinaryTree(object):
         if self.root is None:
             return None
         else:
-            return self._get(key, self.root)
+            return self._get(key, self.root).value
 
 
     def remove(self, key):
@@ -39,8 +39,32 @@ class BinaryTree(object):
         Removes the given key from the tree.
         Returns silently if the key does not exist.
         '''
-        #TODO
+        node = self._get(key, self.root)
+        if self.root is None: return None        
+        if node is None: return None
+        parent = node.parent
 
+        # node has no children
+        if node.left is None and node.right is None:
+            if parent.left and parent.left.key == node.key:
+                parent.left = None
+            else:
+                parent.right = None
+
+        # node has one child
+        if node.left and node.right is None:
+            if parent.left and parent.left.key == node.key:
+                parent.left = node.left
+            else:
+                parent.right = node.left
+
+        if node.right and node.left is None:
+            if parent.left and parent.left.key == node.key:
+                parent.left = node.right
+            else:
+                parent.right = node.right
+
+        # node has two children
 
     def walk_dfs_inorder(self, node=None):
         '''
@@ -48,7 +72,6 @@ class BinaryTree(object):
         Yields (key, value) for each node in the tree.
         '''
         if node is None: node = self.root
-
         if node.left: yield from self.walk_dfs_inorder(node.left)
         yield (node.key, node.value)
         if node.right: yield from self.walk_dfs_inorder(node.right)
@@ -61,7 +84,6 @@ class BinaryTree(object):
         Yields (key, value) for each node in the tree.
         '''
         if node is None: node = self.root
-
         yield (node.key, node.value)
         if node.left: yield from self.walk_dfs_preorder(node.left)
         if node.right: yield from self.walk_dfs_preorder(node.right)
@@ -73,7 +95,6 @@ class BinaryTree(object):
         Yields (key, value) for each node in the tree.
         '''
         if node is None: node = self.root
-
         if node.left: yield from self.walk_dfs_postorder(node.left)
         if node.right: yield from self.walk_dfs_postorder(node.right)
         yield (node.key, node.value)
@@ -85,19 +106,13 @@ class BinaryTree(object):
         Yields (key, value) for each node in the tree.
         '''
         q = [] 
-    
-        # Enqueue Root and initialize height 
         q.append(self.root) 
     
         while(len(q) > 0): 
             yield (q[0].key, q[0].value) 
             node = q.pop(0) 
-    
-            if node.left is not None: 
-                q.append(node.left) 
-    
-            if node.right is not None: 
-                q.append(node.right) 
+            if node.left is not None: q.append(node.left) 
+            if node.right is not None: q.append(node.right) 
 
 
     ##################################################
@@ -123,37 +138,17 @@ class BinaryTree(object):
         Internal method to get a node by key
         '''
         if current_node.key == key:
-            return current_node.value
+            return current_node
         elif current_node.key > key:
             if current_node.left.key == key:
-                return current_node.left.value
+                return current_node.left
             else:
                 return self._get(key, current_node.left)
         else:
             if current_node.right.key == key:
-                return current_node.right.value
+                return current_node.right
             else:
                 return self._get(key, current_node.right)
-
-    def _replace_node(self, oldnode, newnode):
-        '''
-        Internal method to remove a node from its parent
-        '''
-        #TODO: feel free to use or remove this method
-
-
-    def _find(self, key):
-        '''
-        Internal method to find a node by key.
-        Returns (parent, node).
-        '''
-        if self.root is None or self.root.key == key: 
-            return self.root 
-    
-        if self.root.key < key: 
-            return self._find(self.root.right.key) 
-        
-        return self._find(self.root.left.key)
 
 
 
