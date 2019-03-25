@@ -42,15 +42,17 @@ class BinaryTree(object):
         #TODO
 
 
-    def walk_dfs_inorder(self):
+    def walk_dfs_inorder(self, node=None):
         '''
         An iterator that walks the tree in DFS fashion.
         Yields (key, value) for each node in the tree.
         '''
-        #TODO
-        # "yield (key, value)" for current node
-        # "yield from walk_*()" when recursing
-        return []
+        if node is None: node = self.root
+
+        if node.left: yield from self.walk_dfs_inorder(node.left)
+        yield (node.key, node.value)
+        if node.right: yield from self.walk_dfs_inorder(node.right)
+
 
 
     def walk_dfs_preorder(self, node=None, level=0):
@@ -58,10 +60,11 @@ class BinaryTree(object):
         An iterator that walks the tree in preorder DFS fashion.
         Yields (key, value) for each node in the tree.
         '''
-        #TODO
-        # "yield (key, value)" for current node
-        # "yield from walk_*()" when recursing
-        return []
+        if node is None: node = self.root
+
+        yield (node.key, node.value)
+        if node.left: yield from self.walk_dfs_preorder(node.left)
+        if node.right: yield from self.walk_dfs_preorder(node.right)
 
 
     def walk_dfs_postorder(self, node=None, level=0):
@@ -69,10 +72,11 @@ class BinaryTree(object):
         An iterator that walks the tree in inorder DFS fashion.
         Yields (key, value) for each node in the tree.
         '''
-        #TODO
-        # "yield (key, value)" for current node
-        # "yield from walk_*()" when recursing
-        return []
+        if node is None: node = self.root
+
+        if node.left: yield from self.walk_dfs_postorder(node.left)
+        if node.right: yield from self.walk_dfs_postorder(node.right)
+        yield (node.key, node.value)
 
 
     def walk_bfs(self):
