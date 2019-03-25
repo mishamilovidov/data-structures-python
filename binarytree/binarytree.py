@@ -84,9 +84,20 @@ class BinaryTree(object):
         An iterator that walks the tree in BFS fashion.
         Yields (key, value) for each node in the tree.
         '''
-        #TODO
-        # "yield (key, value)" for current node
-        return []
+        q = [] 
+    
+        # Enqueue Root and initialize height 
+        q.append(self.root) 
+    
+        while(len(q) > 0): 
+            yield (q[0].key, q[0].value) 
+            node = q.pop(0) 
+    
+            if node.left is not None: 
+                q.append(node.left) 
+    
+            if node.right is not None: 
+                q.append(node.right) 
 
 
     ##################################################

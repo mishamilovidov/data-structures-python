@@ -58,10 +58,10 @@ def main():
         print(key, value)
     print()
 
-    # print('BFS:')
-    # for key, value in tree.walk_bfs():
-    #     print(key, value)
-    # print()
+    print('BFS:')
+    for key, value in tree.walk_bfs():
+        print(key, value)
+    print()
 
     # print('Initial tree:')
     # print(tree)
