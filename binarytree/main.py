@@ -43,44 +43,44 @@ def main():
     print(tree.get('i'))
     print()
 
-    print('DFS preorder:')
-    for key, value in tree.walk_dfs_preorder():
-        print(key, value)
-    print()
+    # print('DFS preorder:')
+    # for key, value in tree.walk_dfs_preorder():
+    #     print(key, value)
+    # print()
 
-    print('DFS inorder:')
-    for key, value in tree.walk_dfs_inorder():
-        print(key, value)
-    print()
+    # print('DFS inorder:')
+    # for key, value in tree.walk_dfs_inorder():
+    #     print(key, value)
+    # print()
 
-    print('DFS postorder:')
-    for key, value in tree.walk_dfs_postorder():
-        print(key, value)
-    print()
+    # print('DFS postorder:')
+    # for key, value in tree.walk_dfs_postorder():
+    #     print(key, value)
+    # print()
 
-    print('BFS:')
-    for key, value in tree.walk_bfs():
-        print(key, value)
-    print()
+    # print('BFS:')
+    # for key, value in tree.walk_bfs():
+    #     print(key, value)
+    # print()
 
-    print('Initial tree:')
-    print(tree)
-    print()
+    # print('Initial tree:')
+    # print(tree)
+    # print()
 
-    print('Remove b:')
-    tree.remove('b')
-    print(tree)
-    print()
+    # print('Remove b:')
+    # tree.remove('b')
+    # print(tree)
+    # print()
 
-    print('Remove f:')
-    tree.remove('f')
-    print(tree)
-    print()
+    # print('Remove f:')
+    # tree.remove('f')
+    # print(tree)
+    # print()
 
-    print('Remove h:')
-    tree.remove('h')
-    print(tree)
-    print()
+    # print('Remove h:')
+    # tree.remove('h')
+    # print(tree)
+    # print()
 
 
 

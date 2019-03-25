@@ -17,7 +17,10 @@ class BinaryTree(object):
         '''
         Adds the given key=value pair to the tree.
         '''
-        #TODO
+        if self.root is None:
+            self.root = Node(None, key, value)
+        else:
+            self._insert(key, value, self.root)
 
 
     def get(self, key):
@@ -25,8 +28,10 @@ class BinaryTree(object):
         Retrieves the value under the given key.
         Returns None if the key does not exist.
         '''
-        #TODO
-        return None
+        if self.root is None:
+            return None
+        else:
+            return self._get(key, self.root)
 
 
     def remove(self, key):
@@ -83,6 +88,37 @@ class BinaryTree(object):
     ##################################################
     ###   Helper methods
 
+    def _insert(self, key, value, current_node):
+        '''
+        Internal method to insert a node into tree
+        '''
+        if current_node.key > key:
+            if current_node.left is None:
+                current_node.left = Node(current_node, key, value)
+            else:
+                self._insert(key, value, current_node.left)
+        else:
+            if current_node.right is None:
+                current_node.right = Node(current_node, key, value)
+            else:
+                self._insert(key, value, current_node.right)
+    
+    def _get(self, key, current_node):
+        '''
+        Internal method to get a node by key
+        '''
+        if current_node.key == key:
+            return current_node.value
+        elif current_node.key > key:
+            if current_node.left.key == key:
+                return current_node.left.value
+            else:
+                return self._get(key, current_node.left)
+        else:
+            if current_node.right.key == key:
+                return current_node.right.value
+            else:
+                return self._get(key, current_node.right)
 
     def _replace_node(self, oldnode, newnode):
         '''
@@ -96,7 +132,13 @@ class BinaryTree(object):
         Internal method to find a node by key.
         Returns (parent, node).
         '''
-        #TODO: feel free to use or remove this method
+        if self.root is None or self.root.key == key: 
+            return self.root 
+    
+        if self.root.key < key: 
+            return self._find(self.root.right.key) 
+        
+        return self._find(self.root.left.key)
 
 
 
