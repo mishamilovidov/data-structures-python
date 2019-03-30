@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, os.path, binascii
+import os, os.path, binascii, re
 from collections import namedtuple
 from io import StringIO
 
@@ -92,9 +92,8 @@ class StringHashtable(Hashtable):
         '''
         Returns the bucket index number for the given key.
         The number will be in the range of the number of buckets.
-        '''
-        #TODO: hash the string and return the bucket index that should be used
-        return 0;
+        '''        
+        return sum([ord(char) - 96 for char in key.replace(' ','')]) % NUM_BUCKETS;
 
 
 
