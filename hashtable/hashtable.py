@@ -110,8 +110,7 @@ class GuidHashtable(Hashtable):
         Returns the bucket index number for the given key.
         The number will be in the range of the number of buckets.
         '''
-        #TODO: hash the string and return the bucket index that should be used
-        return 0;
+        return int(key[COUNTER_CHARS[0]:COUNTER_CHARS[1]], 16) % NUM_BUCKETS;
 
 
 

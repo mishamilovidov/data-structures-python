@@ -28,24 +28,24 @@ def main():
 
 
     # create the guid hashtable
-#     ht2 = GuidHashtable()
-#     for line in open('guids.txt'):
-#         line = line.strip()
-#         ht2.set(line.lower(), line)
-#     print('Guid hash table:')
-#     print(repr(ht2))
-#     print()
-# 
-#     print('Guid lookups:')
-#     print(ht2.get('00000158691797bd77464883000a001800388ccf'))
-#     print(ht2.get('00000158691797bd7746488c000a001991ef0003'))
-#     print()
-# 
-#     print('Guid hash table (after removing two items):')
-#     ht2.remove('00000158691797bd77464883000a001800388ccf')
-#     ht2.remove('00000158691797bd7746488c000a001991ef0003')
-#     print(repr(ht2))
-#     print()
+    ht2 = GuidHashtable()
+    for line in open('guids.txt'):
+        line = line.strip()
+        ht2.set(line.lower(), line)
+    print('Guid hash table:')
+    print(repr(ht2))
+    print()
+
+    print('Guid lookups:')
+    print(ht2.get('00000158691797bd77464883000a001800388ccf'))
+    print(ht2.get('00000158691797bd7746488c000a001991ef0003'))
+    print()
+
+    print('Guid hash table (after removing two items):')
+    ht2.remove('00000158691797bd77464883000a001800388ccf')
+    ht2.remove('00000158691797bd7746488c000a001991ef0003')
+    print(repr(ht2))
+    print()
 
 
     # create the image hashtable
