@@ -19,30 +19,41 @@ class Hashtable(object):
     '''
     def __init__(self):
         self.buckets = []
-        #TODO: initialize the buckets to empty lists
-
+        for index in range(0, NUM_BUCKETS):
+          self.buckets.append([])
 
     def set(self, key, value):
         '''
         Adds the given key=value pair to the hashtable.
         '''
-        #TODO: store the value by the hash of the key
-
+        node = Node(key, value)
+        indexNumber = self.get_bucket_index(key)
+        self.buckets[indexNumber].append(node)
 
     def get(self, key):
         '''
         Retrieves the value under the given key.
         Returns None if the key does not exist.
         '''
-        #TODO: get the value by the hash of the key
+        indexNumber = self.get_bucket_index(key)
+        value = None;
+        
+        for node in self.buckets[indexNumber]:
+          if node.key == key:
+            value = node.value
 
+        return value;
 
     def remove(self, key):
         '''
         Removes the given key from the hashtable.
         Returns silently if the key does not exist.
         '''
-        #TODO: remove the value by the hash of the key
+        indexNumber = self.get_bucket_index(key)
+        
+        for index, node in enumerate(self.buckets[indexNumber]):
+          if node.key == key:
+            del self.buckets[indexNumber][index]
 
 
     def get_bucket_index(self, key):
@@ -83,6 +94,7 @@ class StringHashtable(Hashtable):
         The number will be in the range of the number of buckets.
         '''
         #TODO: hash the string and return the bucket index that should be used
+        return 0;
 
 
 
@@ -100,6 +112,7 @@ class GuidHashtable(Hashtable):
         The number will be in the range of the number of buckets.
         '''
         #TODO: hash the string and return the bucket index that should be used
+        return 0;
 
 
 
@@ -117,3 +130,4 @@ class ImageHashtable(Hashtable):
         The number will be in the range of the number of buckets.
         '''
         #TODO: hash the string and return the bucket index that should be used
+        return 0;
