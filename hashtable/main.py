@@ -49,24 +49,24 @@ def main():
 
 
     # create the image hashtable
-#     ht3 = ImageHashtable()
-#     for line in open('images.txt'):
-#         line = line.strip()
-#         ht3.set(line, line)
-#     print('Image hash table:')
-#     print(repr(ht3))
-#     print()
-# 
-#     print('Image lookups:')
-#     print(ht3.get('document.png'))
-#     print(ht3.get('security_keyandlock.png'))
-#     print()
-# 
-#     print('Image hash table (after removing two items):')
-#     ht3.remove('document.png')
-#     ht3.remove('security_keyandlock.png')
-#     print(repr(ht3))
-#     print()
+    ht3 = ImageHashtable()
+    for line in open('images.txt'):
+        line = line.strip()
+        ht3.set(line, line)
+    print('Image hash table:')
+    print(repr(ht3))
+    print()
+
+    print('Image lookups:')
+    print(ht3.get('document.png'))
+    print(ht3.get('security_keyandlock.png'))
+    print()
+
+    print('Image hash table (after removing two items):')
+    ht3.remove('document.png')
+    ht3.remove('security_keyandlock.png')
+    print(repr(ht3))
+    print()
 
 
 ###  Bootstrap  ###

@@ -2,6 +2,7 @@
 import os, os.path, binascii, re
 from collections import namedtuple
 from io import StringIO
+from PIL import Image, PngImagePlugin
 
 
 # a named tuple to hold an individual key and value
@@ -127,5 +128,9 @@ class ImageHashtable(Hashtable):
         Returns the bucket index number for the given key.
         The number will be in the range of the number of buckets.
         '''
-        #TODO: hash the string and return the bucket index that should be used
-        return 0;
+        img = Image.open('./images/{}'.format(key))
+        nums = []
+        for (count, color) in img.getcolors():
+          nums.append(int('%02x%02x%02x' % (color[0], color[1], color[2]), 16))
+          
+        return sum(nums) % 10;

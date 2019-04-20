@@ -105,6 +105,7 @@ class LinkedList(object):
         
         # print value of node
         print(node.value)
+        return node.value
       except Exception as e:
         print(e)
         return e
