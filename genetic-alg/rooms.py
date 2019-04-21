@@ -14,14 +14,14 @@ class Rooms(object):
 
   def __iter__(self):
     '''Iterates through the linked list, implemented as a generator.'''
-    for room in self.data:
-        yield room
+    for key, value in self.data.items():
+      yield (key, value)
   
   
   def _generate_data(self, rooms_csv):
     '''Generates dictionary of rooms from csv data'''
     with open(rooms_csv) as input_file:
-      room_list = []
+      rooms = {}
       room_attributes = []
       csv_reader = csv.reader(input_file, delimiter=',')
       
@@ -33,6 +33,6 @@ class Rooms(object):
           room = {}
           for index, item in enumerate(row):
             room[room_attributes[index]] = item
-          room_list.append(room)
+          rooms[room['room']] = room
             
-      return room_list
+      return rooms

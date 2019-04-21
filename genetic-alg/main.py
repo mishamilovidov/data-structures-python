@@ -9,15 +9,16 @@ ROOMS_CSV = 'rooms.csv'
 CLASSES_CSV = 'classes.csv'
 
 def main():
-  rooms = Rooms(ROOMS_CSV)
-  slots = Slots(rooms)
-  schedule = Schedule(rooms, slots, CLASSES_CSV)
-#   
-#   room = {'room': '151', 'capacity': '45', 'type': 'Flat'}
-#   course = {'section': 1, 'preferred_time': 'Morning', 'wednesday': 'x', 'friday': '', 'slots': 4, 'monday': 'x', 'preferred_room_type': 'Flat', 'hours': '1.75', 'thursday': '', 'tuesday': '', 'course': 'BUS M 582', 'students_per_section': '45'}
-#   slots = { '151-M-4-344-Auditorium',  '151-M-5-344-Auditorium', '151-M-6-344-Auditorium', '151-M-7-344-Auditorium'}
+  solution_fitness_items = []
   
-  class_assignment = ClassAssignment(course, room, slots)
+  for i in range(1, 30):
+    rooms = Rooms(ROOMS_CSV)
+    slots = Slots(rooms)
+    schedule = Schedule(rooms, slots, CLASSES_CSV)
+    solution_fitness_items.append(schedule.get_fitness())
+    print('{} solutions created'.format(i))
+
+  print('AVERAGE FITNESS: {}'.format(sum(solution_fitness_items) / len(solution_fitness_items)))
 
 ### Main runner ###
 if __name__ == '__main__':

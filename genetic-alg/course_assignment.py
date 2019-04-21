@@ -18,7 +18,7 @@ COURSE_TIME_RANGES = [
   TimeRange('Afternoon', 9, 18)
 ]
 
-class ClassAssignment(object):
+class CourseAssignment(object):
   '''
   An object to represent a single course+room+time assignment on the schedule
   '''
@@ -67,8 +67,8 @@ class ClassAssignment(object):
     '''Calculates the time portion of the class assignment fitness score'''
     course_pref_time = self.course['preferred_time']
     time_list = list(self.time)
-    start_time_num = time_list[0].split('-')[2]
-    end_time_num = time_list[len(time_list)-1].split('-')[2]
+    start_time_num = time_list[0].data.split('-')[2]
+    end_time_num = time_list[len(time_list)-1].data.split('-')[2]
     start_time_of_day = self._get_time_of_day(int(start_time_num))
     end_time_of_day = self._get_time_of_day(int(end_time_num))
         
