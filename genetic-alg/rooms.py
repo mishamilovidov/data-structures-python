@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import csv
+import random
 
 class Rooms(object):
   '''
@@ -20,19 +21,25 @@ class Rooms(object):
   
   def _generate_data(self, rooms_csv):
     '''Generates dictionary of rooms from csv data'''
+    rooms_info = []
+    rooms = {}
+    room_attributes = []
+    
     with open(rooms_csv) as input_file:
-      rooms = {}
-      room_attributes = []
       csv_reader = csv.reader(input_file, delimiter=',')
-      
-      for idx, row in enumerate(csv_reader):
-        if idx == 0:
-          for item in row:
-            room_attributes.append(item.strip().lower().replace(' ','_'))
-        else:
-          room = {}
-          for index, item in enumerate(row):
-            room[room_attributes[index]] = item
-          rooms[room['room']] = room
-            
-      return rooms
+      for row in csv_reader:
+        rooms_info.append(row)
+        
+    for item in rooms_info[0]:
+      room_attributes.append(item.strip().lower().replace(' ','_'))
+    
+    rooms_info.remove(rooms_info[0])
+    random.shuffle(rooms_info)
+    
+    for row in rooms_info:
+      room = {}
+      for index, item in enumerate(row):
+        room[room_attributes[index]] = item
+      rooms[room['room']] = room
+          
+    return rooms

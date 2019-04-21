@@ -3,6 +3,7 @@ import sys
 import csv
 from rooms import Rooms
 from slots import Slots
+from courses import Courses
 from schedule import Schedule
 
 ROOMS_CSV = 'rooms.csv'
@@ -14,11 +15,14 @@ def main():
   for i in range(1, 30):
     rooms = Rooms(ROOMS_CSV)
     slots = Slots(rooms)
-    schedule = Schedule(rooms, slots, CLASSES_CSV)
+    courses = Courses(CLASSES_CSV)
+    schedule = Schedule(rooms, slots, courses)
+    
     solution_fitness_items.append(schedule.get_fitness())
     print('{} solutions created'.format(i))
 
-  print('AVERAGE FITNESS: {}'.format(sum(solution_fitness_items) / len(solution_fitness_items)))
+  avg_solution_fitness = round(sum(solution_fitness_items) / len(solution_fitness_items))
+  print('AVERAGE FITNESS: {}'.format(avg_solution_fitness))
 
 ### Main runner ###
 if __name__ == '__main__':
