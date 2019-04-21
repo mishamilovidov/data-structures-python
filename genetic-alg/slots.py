@@ -16,7 +16,7 @@ class Slots(object):
   def __init__(self, rooms):
     '''Creates a set for the available slots on a schedule'''
     self.data = self._generate_data(rooms)
-    self.slots_used = 0
+    self.slots_used = []
     
   
   def __iter__(self):
@@ -25,15 +25,15 @@ class Slots(object):
         yield (key, value)
     
     
-  def get_free_slots(self, days, slot_count, min_capacity):
+  def get_free_slots(self, days, slot_count, min_capacity, pref_type, pref_time):
     '''Returns an available slot based on the slot length and num of days'''
     available_slots = []
     
     if len(days) > 1:
-      day_one_slots = self._find_available_slot_block(days[0], slot_count, min_capacity)
+      day_one_slots = self._find_available_slot_block(days[0], slot_count, min_capacity, pref_type, pref_time)
       
       if len(day_one_slots) > 0:
-        day_two_slots = self._find_available_slot_block(days[1], slot_count, min_capacity, day_one_slots[0])
+        day_two_slots = self._find_available_slot_block(days[1], slot_count, min_capacity, pref_type, pref_time, day_one_slots[0])
       else:
         day_two_slots = []
         
@@ -43,7 +43,7 @@ class Slots(object):
       return self._find_available_slot_block(day, slot_count, min_capacity)    
     
     
-  def _find_available_slot_block(self, day='M', slot_count=None, min_capacity=None, match_slot=None):
+  def _find_available_slot_block(self, day='M', slot_count=None, min_capacity=None, pref_type=None, pref_time=None, match_slot=None):
     '''Finds available block of slots for specific day of the week'''
     slot_block = []
     
@@ -54,7 +54,8 @@ class Slots(object):
       slot_num = int(slot_code[2])
       capacity = int(slot_code[3])
       type = slot_code[4]
-      base_slot_check = slot.available and capacity >= min_capacity and ((slot_num  + slot_count) <= SLOTS_PER_DAY) and day == day_code
+      time_of_day = 'Morning' if 1 <= slot_num <= 8 else 'Afternoon'
+      base_slot_check = slot.available and capacity >= min_capacity and ((slot_num  + slot_count) <= SLOTS_PER_DAY) and day == day_code and type == pref_type and time_of_day == pref_time
       matches = 0
       
       for i in range(slot_num, (slot_num + slot_count)):
@@ -74,7 +75,7 @@ class Slots(object):
           for i in range(slot_num, (slot_num + slot_count)):
             slot_data = Slot('{}-{}-{}-{}-{}'.format(room, day_code, i, capacity, type), False)
             self.data[slot_key] = slot_data
-            self.slots_used = self.slots_used + 1
+            self.slots_used.append(slot_data)
             slot_block.append(slot_data)
           break
       else:
@@ -83,7 +84,7 @@ class Slots(object):
           for i in range(slot_num, (slot_num + slot_count)):
             slot_data = Slot('{}-{}-{}-{}-{}'.format(room, day_code, i, capacity, type), False)
             self.data[slot_key] = slot_data
-            self.slots_used = self.slots_used + 1
+            self.slots_used.append(slot_data)
             slot_block.append(slot_data)
           break
     
