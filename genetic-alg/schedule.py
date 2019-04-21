@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 import sys
+import copy
 import csv
 import math
 import pprint
 import random
+import uuid
 from itertools import groupby
 from collections import namedtuple
 from course_assignment import CourseAssignment
@@ -26,6 +28,7 @@ class Schedule(object):
   
   def __init__(self, rooms, slots, courses):
     '''Creates a schedule solution based on rooms available and classes to assign'''
+    self.id = uuid.uuid4().hex
     self.slots = slots
     self.rooms = rooms
     self.class_list = courses.data
@@ -49,11 +52,27 @@ class Schedule(object):
     
     
   def crossover(self, other_solution):
-    '''Crosses with another scheudled solution and returns a new schedule solution'''
+    '''Crosses with another scheudled solution and returns two changed schedule solutions'''
+    this_schedule = copy.deepcopy(self)
+    other_schedule = copy.deepcopy(other_solution)
+    
+    # remove Monday/Wednesday course assignments from other_schedule
+    for course_assignment in other_schedule.data:
+      if course_assignment.course['monday'] == 'x' and course_assignment.course['wednesday'] == 'x':
+        del other_schedule.data[other_schedule.data.index(course_assignment)]
+    
+    # add Monday/Wednesday course assignments from this_schedule to other_schedule
+    for course_assignment in this_schedule.data:
+      if course_assignment.course['monday'] == 'x' and course_assignment.course['wednesday'] == 'x':
+        other_schedule.data.append(course_assignment)
+    
+    
+    return (this_schedule, other_schedule)
     
     
   def mutate(self):
-    '''Mutates the schedule solution in some way'''
+    '''Mutates a schedule solution in some way'''
+    return self
     
     
   def _calc_class_assignment_scores_sum(self):
@@ -141,7 +160,8 @@ class Schedule(object):
     slots_unused = self.slots.data
     
     for item in self.slots.slots_used:
-      del slots_unused[item.data]
+      if item.data in slots_unused.keys():
+        del slots_unused[item.data]
       
     return slots_unused
     
